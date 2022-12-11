@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>管理员导航条</title>
+<link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
+<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+<script language="javascript">
+function quit(){
+	if(confirm("真的要退出系统吗?")){
+		window.location.href="${pageContext.request.contextPath}/route/login";
+	}
+}
+
+</script>
+</head>
+<body>
+
+<script>
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+
+
+<ul class="layui-nav" lay-filter="">
+  <li class="layui-nav-item"> <a href="${pageContext.request.contextPath}/route/main">首页</a></li>
+  <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/allAnnouncements">公告管理</a></li>
+  <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/allMessages">留言板管理</a></li>
+  <li class="layui-nav-item">
+    <a href="javascript:;">音像管理</a>
+    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+      <dd><a href="${pageContext.request.contextPath}/allTaps">音像信息管理</a></dd>
+      <dd><a href="${pageContext.request.contextPath}/allTypes">音像类别管理</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/allUsers">用户管理</a></li>
+    <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/allLeases">订单管理</a></li>
+    <li class="layui-nav-item"><a href="#" onClick="quit()">退出账号</a></li>
+</ul>
+
+
+
+</body>
+</html>

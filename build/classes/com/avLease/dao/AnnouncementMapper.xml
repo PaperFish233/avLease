@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.AnnouncementMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="announcement" id="announcementMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="Ano" property="no" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="Aname" property="name"/>
+		<result column="Acontent" property="content"/>
+		<result column="Atime" property="time"/>
+	</resultMap>
+	
+	<select id="findAllAnnouncements" resultMap="announcementMapper">
+		select * from announcement
+	</select>
+	
+	<select id="findAnnouncementById" resultMap="announcementMapper">
+		select * from announcement where Aname = #{name}
+	</select>
+	
+	<select id="addAnnouncement" resultMap="announcementMapper">
+		insert into announcement (Aname,Acontent,Atime) values (#{name},#{content},#{time});
+	</select>
+	
+	<select id="delAnnouncementById" resultMap="announcementMapper">
+		delete from announcement where Ano = #{no}
+	</select>
+	
+	<select id="upAnnouncementById" resultMap="announcementMapper">
+		update announcement set Aname=#{name},Acontent=#{content},Atime=#{time} where Ano=#{no}
+	</select>
+	
+</mapper>

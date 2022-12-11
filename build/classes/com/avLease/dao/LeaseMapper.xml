@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.LeaseMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="lease" id="leaseMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="Lno" property="no" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="Lname" property="name"/>
+		<result column="Ltap" property="tap"/>
+		<result column="Ltype" property="type"/>
+		<result column="Ltime" property="time"/>
+		<result column="Lstate" property="state"/>
+	</resultMap>
+	
+	<select id="findAllLeases" resultMap="leaseMapper">
+		select * from lease
+	</select>
+	
+	<select id="findLeaseById" resultMap="leaseMapper">
+		select * from lease where Lname = #{name}
+	</select>
+	
+	<select id="addLease" resultMap="leaseMapper">
+		insert into lease (Lname,Ltap,Ltime,Lstate) values (#{name},#{tap},#{time},1);
+	</select>
+	
+	<select id="delLeaseById" resultMap="leaseMapper">
+		update lease set Lstate=2 where Lno=#{no}
+	</select>
+	
+	<select id="upLeaseById" resultMap="leaseMapper">
+		update lease set Lname=#{name},Ltap=#{tap},Ltime=#{time} where Lno=#{no}
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="findLeaseByIdUser" resultMap="leaseMapper">
+		select * from lease where Lname = #{name}
+	</select>
+	
+	<select id="findLeaseByIdUser2" resultMap="leaseMapper">
+		select * from lease where Ltap = #{tap} and Lname=#{name}
+	</select>
+	
+		<select id="delLeaseByIdUser" resultMap="leaseMapper">
+		update lease set Lstate=2 where Lno=#{no}
+	</select>
+	
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.MessageMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="message" id="messageMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="Mno" property="no" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="Mname" property="name"/>
+		<result column="Mcontent" property="content"/>
+		<result column="Mtime" property="time"/>
+	</resultMap>
+	
+	<select id="findAllMessages" resultMap="messageMapper">
+		select * from message
+	</select>
+	
+	<select id="findMessageById" resultMap="messageMapper">
+		select * from message where Mname = #{name}
+	</select>
+	
+	<select id="addMessage" resultMap="messageMapper">
+		insert into message (Mname,Mcontent,Mtime) values (#{name},#{content},#{time});
+	</select>
+	
+	<select id="delMessageById" resultMap="messageMapper">
+		delete from message where Mno = #{no}
+	</select>
+	
+	<select id="upMessageById" resultMap="messageMapper">
+		update message set Mname=#{name},Mcontent=#{content},Mtime=#{time} where Mno=#{no}
+	</select>
+	
+</mapper>

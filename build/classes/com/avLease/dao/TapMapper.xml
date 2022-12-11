@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.TapMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="tap" id="tapMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="Tno" property="no" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="Tname" property="name"/>
+		<result column="TTno" property="tno"/>
+		<result column="TTTname" property="tname"/>
+		<result column="Tstate" property="state"/>
+	</resultMap>
+	
+	<select id="findAllTaps" resultMap="tapMapper">
+		select tap.Tno,tap.Tname,tap.TTno,type.TTTname,tap.Tstate from tap,type where tap.TTno = type.TTTno
+	</select>
+	
+	<select id="findTapById" resultMap="tapMapper">
+		select tap.Tno,tap.Tname,type.TTTname,tap.Tstate from tap inner join type on tap.TTno = type.TTTno where Tname = #{name}
+	</select>
+	
+	<select id="addTap" resultMap="tapMapper">
+		insert into tap (Tname,TTno,Tstate) values (#{name},#{tno},1);
+	</select>
+	
+	<select id="delTapById" resultMap="tapMapper">
+		delete from tap where Tno = #{no}
+	</select>
+	
+	<select id="upTapById" resultMap="tapMapper">
+		update tap set Tname=#{name},TTno=#{tno},Tstate=#{state} where Tno=#{no}
+	</select>
+	
+	<select id="stateLease" resultMap="tapMapper">
+		update tap set Tstate=2 where Tname=#{name}
+	</select>
+	
+	<select id="leaseState" resultMap="tapMapper">
+		update tap set Tstate=1 where Tname=#{name}
+	</select>
+	
+	
+	
+	<select id="findAllTapsUser" resultMap="tapMapper">
+		select tap.Tno,tap.Tname,tap.TTno,type.TTTname,tap.Tstate from tap,type where tap.TTno = type.TTTno and tap.Tstate=1
+	</select>
+	
+	<select id="findTapByIdUser" resultMap="tapMapper">
+		select tap.Tno,tap.Tname,type.TTTname,tap.Tstate from tap inner join type on tap.TTno = type.TTTno where Tname = #{name} and tap.Tstate=1
+	</select>
+	
+</mapper>

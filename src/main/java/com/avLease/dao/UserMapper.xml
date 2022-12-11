@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.UserMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="user" id="userMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="Uno" property="no" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="Uaccount" property="account"/>
+		<result column="Uname" property="name"/>
+		<result column="Upassword" property="password"/>
+		<result column="Uauthority" property="authority"/>
+	</resultMap>
+	<!-- id：findAllUsers 对应接口的方法-->
+	<select id="findAllUsers" resultMap="userMapper">
+		select * from user
+	</select>
+	
+	<select id="findUserById" resultMap="userMapper">
+		select * from user where Uaccount = #{account}
+	</select>
+	
+	<select id="addUser" resultMap="userMapper">
+		insert into user (Uaccount,Uname,Upassword,Uauthority) values (#{account},#{name},#{password},#{authority})
+	</select>
+	
+	<select id="delUserById" resultMap="userMapper">
+		delete from user where Uno = #{no}
+	</select>
+	
+	<select id="upUserById" resultMap="userMapper">
+		update user set Uname=#{name},Upassword=#{password},Uauthority=#{authority} where Uaccount=#{account}
+	</select>
+	
+	<select id="loginUser" resultMap="userMapper">
+		select * from user where Uaccount=#{account} and Upassword=#{password}
+	</select>
+	
+	<select id="register" resultMap="userMapper">
+		insert into user (Uaccount,Uname,Upassword,Uauthority) values (#{account},#{name},#{password},2)
+	</select>
+</mapper>
+

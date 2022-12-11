@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+  <!-- namespace：命名空间，填写对应接口的全限定类名 -->      
+<mapper namespace="com.avLease.dao.TypeMapper">
+	<!-- type：返回的类型，这里启用了别名，所以不用写全限定类名 -->
+	<resultMap type="type" id="typeMapper">
+		<!-- 对应的是数据库表中的主键 -->
+		<id column="TTTno" property="ttno" />
+		<!-- 数据库表中的其他信息 -->
+		<result column="TTTname" property="ttname"/>
+	</resultMap>
+	
+	<select id="findAllTypes" resultMap="typeMapper">
+		select * from type
+	</select>
+	
+	<select id="findTypeById" resultMap="typeMapper">
+		select * from type where TTTname = #{ttname}
+	</select>
+	
+	<select id="addType" resultMap="typeMapper">
+		insert into type (TTTname) values (#{ttname});
+	</select>
+	
+	<select id="delTypeById" resultMap="typeMapper">
+		delete from type where TTTno = #{ttno}
+	</select>
+	
+	<select id="upTypeById" resultMap="typeMapper">
+		update type set TTTname=#{ttname} where TTTno=#{ttno}
+	</select>
+	
+</mapper>
